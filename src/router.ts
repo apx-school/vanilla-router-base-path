@@ -10,23 +10,23 @@ const routes: RouterPath[] = [
     pathRegex: /^\/$/,
     render: () => {
       const div = document.createElement("div");
-      div.innerHTML = `<h1>Homepage</h1><a href="/pageA">Ir a Página A</a>`;
+      div.innerHTML = `<h1>Homepage</h1><a href="/login">Ir al login</a>`;
       return div;
     },
   },
   {
-    pathRegex: /^\/pageA$/,
+    pathRegex: /^\/login$/,
     render: () => {
       const div = document.createElement("div");
-      div.innerHTML = `<h1>Página A</h1><a href="/pageB">Ir a Página B</a>`;
+      div.innerHTML = `<h1>Login</h1><a href="/perfil">Ir al perfíl</a>`;
       return div;
     },
   },
   {
-    pathRegex: /^\/pageB$/,
+    pathRegex: /^\/perfil$/,
     render: () => {
       const div = document.createElement("div");
-      div.innerHTML = `<h1>Página B</h1><a href="/">Ir a la Home</a>`;
+      div.innerHTML = `<h1>Perfil</h1><a href="/">Ir a la Home</a>`;
       return div;
     },
   },
