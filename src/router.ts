@@ -1,16 +1,17 @@
 // Tipo para las rutas, cada ruta tiene un regex para el path y una función render que devuelve un elemento HTML.
 type RouterPath = {
   pathRegex: RegExp;
-  render: () => HTMLElement;
+  render: (params: { goTo: (path: string) => void }) => HTMLElement;
 };
 
 // Definición de rutas, con tres rutas de ejemplo.
 const routes: RouterPath[] = [
   {
     pathRegex: /^\/$/,
-    render: () => {
+    render: ({ goTo }) => {
       const div = document.createElement("div");
-      div.innerHTML = `<h1>Homepage</h1><a href="/login">Ir al login</a>`;
+      div.innerHTML = `<h1>Homepage</h1><button>Ir al login</button>`;
+      div.addEventListener("click", () => goTo("/login"));
       return div;
     },
   },
@@ -18,7 +19,8 @@ const routes: RouterPath[] = [
     pathRegex: /^\/login$/,
     render: () => {
       const div = document.createElement("div");
-      div.innerHTML = `<h1>Login</h1><a href="/perfil">Ir al perfíl</a>`;
+      div.innerHTML = `<h1>Login</h1><button>Ir al perfíl</button>`;
+      div.addEventListener("click", () => goTo("/perfil"));
       return div;
     },
   },
@@ -26,13 +28,19 @@ const routes: RouterPath[] = [
     pathRegex: /^\/perfil$/,
     render: () => {
       const div = document.createElement("div");
-      div.innerHTML = `<h1>Perfil</h1><a href="/">Ir a la Home</a>`;
+      div.innerHTML = `<h1>Perfil</h1><button>Ir a la Home</button>`;
+      div.addEventListener("click", () => goTo("/"));
       return div;
     },
   },
 ];
 
 // Función para renderizar el contenido en base al path actual.
+
+function goTo(path: string) {
+  window.history.pushState({}, "", path);
+  renderPath(path);
+}
 function renderPath(path: string): void {
   const route = routes.find((route) => route.pathRegex.test(path));
 
@@ -41,7 +49,7 @@ function renderPath(path: string): void {
     const app = document.getElementById("app");
     if (app) {
       app.innerHTML = ""; // Limpiar contenido previo
-      app.appendChild(route.render());
+      app.appendChild(route.render({ goTo }));
     }
   } else {
     console.warn(`El path '${path}' no fue encontrado.`);
