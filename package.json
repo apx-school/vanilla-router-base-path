@@ -4,7 +4,7 @@
   "autho": "Marcelo Zapaia <marce@apx.school>",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=/dist/",
+    "build": "vite build",
     "preview": "vite preview",
     "deploy": "gh-pages -d dist"
   },
