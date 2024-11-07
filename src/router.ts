@@ -41,6 +41,7 @@ function goTo(path: string) {
   window.history.pushState({}, "", path);
   renderPath(path);
 }
+
 function renderPath(path: string): void {
   const route = routes.find((route) => route.pathRegex.test(path));
 
@@ -62,9 +63,4 @@ export function initRouter(): void {
 
   // Llama a renderPath con la ruta inicial.
   renderPath(initialPath);
-
-  // Escucha cambios en el estado de la URL.
-  window.addEventListener("popstate", () => {
-    renderPath(window.location.pathname);
-  });
 }
